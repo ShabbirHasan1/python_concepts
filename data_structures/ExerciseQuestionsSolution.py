@@ -23,3 +23,29 @@ def reverse_k(queue, k):
     for _ in range(size - k):
         queue.enqueue(queue.dequeue())
     return queue
+
+
+#Question2
+#Evaluate Postfix Expression Using a Stack
+def evaluate_post_fix(exp):
+    '''
+    evaluate postfix expression
+    :param exp: str exp = "694 * - 7 - 4 +"
+    :return: integer
+    '''
+    stack = Stack()
+    try:
+        for char in exp:
+            if char.isdigit():
+                # Push numbers in stack
+                stack.push(char)
+            else:
+                right = stack.pop()
+                left = stack.pop()
+                stack.push(str(eval(left + char + right)))
+        return int(float(stack.pop()))
+    except TypeError:
+        return "Invalid Sequence"
+
+if __name__ == "__main__" :
+    print("Result of expression (694 * - 7 - 4 +) : " + str(evaluate_post_fix("694*+7-4+")))
