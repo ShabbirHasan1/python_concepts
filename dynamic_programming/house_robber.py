@@ -17,7 +17,21 @@ def house(nums):
         return 0
     return max(house(nums[1:]), house(nums[2:]) + nums[0])
 
-
+def solution2(nums):
+    n = len(nums)
+    memo = [0] * (n + 2)
+    if n == 2 or n == 1:
+        return max(nums)
+    if n == 3:
+        return max(nums[0] + nums[2], nums[1])
+    memo[0] = 0
+    memo[1] = 0
+    memo[2] = nums[0]
+    for i in range(3, n + 2):
+        tmp1 = nums[i - 3] + memo[i - 3]
+        tmp2 = nums[i - 2] + memo[i - 2]
+        memo[i] = max(tmp1, tmp2)
+    return max(memo[-1], memo[-2])
 def solution2(nums):
     if len(nums) == 0:
         return 0
